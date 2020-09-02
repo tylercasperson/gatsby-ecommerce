@@ -6,7 +6,19 @@ import Image from '../components/image';
 import SEO from '../components/seo';
 
 const IndexPage = () => {
-  const stripe = window.Stripe();
+  const stripe = window.Stripe(process.env.stripe_api_key);
+
+  stripe.redirectToCheckout({
+    lineItems: [
+      {
+        price: 'price_1HMkrlD9PqAGwk1KHi3XFc4A',
+        quantity: 1,
+      },
+    ],
+    mode: 'payment',
+    successUrl: 'http://localhost:8000/',
+    cancelUrl: 'http://localhost:8000/',
+  });
 
   return (
     <Layout>
